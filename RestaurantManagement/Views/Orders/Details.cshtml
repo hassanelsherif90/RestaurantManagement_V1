@@ -1,0 +1,19 @@
+﻿@model OrderViewModel
+
+<div class="container">
+    <h2>تفاصيل الطلب #@Model.OrderId</h2>
+    <dl class="row">
+        <dt class="col-sm-3">الطاولة</dt>
+        <dd class="col-sm-9">@Model.TableNumber</dd>
+
+        <dt class="col-sm-3">الوقت</dt>
+        <dd class="col-sm-9">@Model.OrderTime.ToString("HH:mm")</dd>
+
+        <dt class="col-sm-3">المبلغ</dt>
+        <dd class="col-sm-9">@Model.TotalAmount.ToString("C")</dd>
+
+        <dt class="col-sm-3">الحالة</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+    </dl>
+    <a asp-action="Index" class="btn btn-secondary">عودة</a>
+</div>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InventoryItemViewModel>
+
+<div class="container">
+    <h2>المخزون</h2>
+    <a href="@Url.Action("Create")" class="btn btn-primary">إضافة عنصر مخزون جديد</a>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>اسم العنصر</th>
+                    <th>المخزون الحالي</th>
+                    <th>تاريخ إعادة التخزين الأخير</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ItemName</td>
+                        <td>@item.CurrentStock</td>
+                        @* <td>@item.LastRestockDate.ToString("dd/MM/yyyy")</td> *@
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-warning btn-sm">تعديل</a>
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger btn-sm">حذف</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

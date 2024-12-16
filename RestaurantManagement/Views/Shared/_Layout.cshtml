@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "نظام إدارة المطعم";
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-dark border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading text-white">نظام إدارة المطعم</div>
+            <div class="list-group list-group-flush">
+                <a href="/Dashboard" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-tachometer-alt me-2"></i>لوحة التحكم
+                </a>
+                <a href="/Orders" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-shopping-cart me-2"></i>الطلبات
+                </a>
+                <a href="/Menu" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-utensils me-2"></i>القائمة
+                </a>
+                <a href="/Tables" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-chair me-2"></i>الطاولات
+                </a>
+                <a href="/Reservations" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-calendar-alt me-2"></i>الحجوزات
+                </a>
+                <a href="/Inventory" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-warehouse me-2"></i>المخزون
+                </a>
+                <a href="/Reports" class="list-group-item list-group-item-action bg-dark text-white">
+                    <i class="fas fa-chart-bar me-2"></i>التقارير
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user me-2"></i>@User.Identity.Name
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="/Profile">الملف الشخصي</a>
+                                <a class="dropdown-item" href="/Settings">الإعدادات</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Logout">تسجيل الخروج</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

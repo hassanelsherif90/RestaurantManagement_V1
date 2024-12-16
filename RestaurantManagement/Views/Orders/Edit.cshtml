@@ -1,0 +1,18 @@
+﻿@model OrderEditViewModel
+
+<div class="container">
+    <h2>تعديل الطلب #@Model.TableId</h2>
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="OrderId" />
+        <div class="form-group">
+            <label asp-for="TableId" class="control-label"></label>
+            @* <select asp-for="TableId" class="form-control" asp-items="Model.TableOptions"></select> *@
+        </div>
+        <div class="form-group">
+            <label asp-for="TotalAmount" class="control-label"></label>
+            <input asp-for="TotalAmount" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">تحديث</button>
+        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>

@@ -1,0 +1,21 @@
+﻿@model OrderViewModel
+
+<div class="container">
+    <h2>حذف الطلب #@Model.OrderId</h2>
+    <p>هل أنت متأكد أنك تريد حذف هذا الطلب؟</p>
+    <dl class="row">
+        <dt class="col-sm-3">الطاولة</dt>
+        <dd class="col-sm-9">@Model.TableNumber</dd>
+
+        <dt class="col-sm-3">الوقت</dt>
+        <dd class="col-sm-9">@Model.OrderTime.ToString("HH:mm")</dd>
+
+        <dt class="col-sm-3">المبلغ</dt>
+        <dd class="col-sm-9">@Model.TotalAmount.ToString("C")</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="OrderId" />
+        <button type="submit" class="btn btn-danger">حذف</button>
+        <a asp-action="Index" class="btn btn-secondary">إلغاء</a>
+    </form>
+</div>

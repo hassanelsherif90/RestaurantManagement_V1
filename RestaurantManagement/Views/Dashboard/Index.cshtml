@@ -1,0 +1,138 @@
+﻿@model DashboardViewModel
+
+<div class="container-fluid">
+    <!-- Statistics Cards -->
+    <div class="row mt-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0">@Model.TodayOrders</h3>
+                            <div class="small">طلبات اليوم</div>
+                        </div>
+                        <i class="fas fa-shopping-cart fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0">@Model.TodayRevenue.ToString("C")</h3>
+                            <div class="small">إيرادات اليوم</div>
+                        </div>
+                        <i class="fas fa-dollar-sign fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0">@Model.PendingReservations</h3>
+                            <div class="small">حجوزات معلقة</div>
+                        </div>
+                        <i class="fas fa-calendar-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="mb-0">@Model.LowStockItems</h3>
+                            <div class="small">مواد منخفضة</div>
+                        </div>
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders & Tables Status -->
+    <div class="row">
+        <!-- Recent Orders -->
+        <div class="col-xl-8">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">آخر الطلبات</h5>
+                    <a href="/Orders" class="btn btn-sm btn-primary">عرض الكل</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>الطاولة</th>
+                                    <th>الوقت</th>
+                                    <th>المبلغ</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.RecentOrders)
+                                {
+                                    <tr>
+                                        <td>#@order.OrderId</td>
+                                        <td>@order.TableNumber</td>
+                                        <td>@order.OrderTime.ToString("HH:mm")</td>
+                                        <td>@order.TotalAmount.ToString("C")</td>
+                                        <td>
+                                            <span class="badge bg-@order.StatusColor">@order.Status</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tables Status -->
+        <div class="col-xl-4">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">حالة الطاولات</h5>
+                    <a href="/Tables" class="btn btn-sm btn-primary">عرض الكل</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-grid">
+                        @foreach (var table in Model.Tables)
+                        {
+                            <div class="table-item @(!table.IsOccupied ? "occupied" : "available")">
+                                <div class="table-number">@table.Number</div>
+                                <div class="table-status">@(!table.IsOccupied ? "مشغولة" : "متاحة")</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Chart.js initialization for sales chart
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'line',
+            data: @Html.Raw(Json.Serialize(Model.SalesChartData)),
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+}
