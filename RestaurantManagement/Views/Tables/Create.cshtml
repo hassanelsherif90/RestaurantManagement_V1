@@ -4,45 +4,65 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<!-- العنوان الرئيسي -->
+<h1 class="text-center mb-5 text-info">إضافة الطاولة</h1>
 
-<h4>TableViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            @* <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
-                <input asp-for="Number" class="form-control" />
-                <span asp-validation-for="Number" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Seats" class="control-label"></label>
-                <input asp-for="Seats" class="form-control" />
-                <span asp-validation-for="Seats" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsOccupied" /> @Html.DisplayNameFor(model => model.IsOccupied)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <!-- النموذج مع إضافة الظل والحواف الدائرية -->
+            <form asp-action="Create" class="bg-white shadow-lg rounded p-5">
+
+                <!-- عرض أخطاء التحقق -->
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <!-- حقل رقم الطاولة -->
+                <div class="form-group">
+                    <label asp-for="TableNumber" class="form-label">رقم الطاولة</label>
+                    <input asp-for="TableNumber" class="form-control form-control-lg" placeholder="أدخل رقم الطاولة" />
+                    <span asp-validation-for="TableNumber" class="text-danger"></span>
+                </div>
+
+                <!-- حقل عدد المقاعد -->
+                <div class="form-group">
+                    <label asp-for="Capacity" class="form-label">عدد المقاعد</label>
+                    <input asp-for="Capacity" class="form-control form-control-lg" placeholder="أدخل عدد المقااع" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+
+                <!-- حقل حالة الطاولة -->
+                <div class="form-group">
+                    <label asp-for="Status" class="form-label">حالة الطاولة</label>
+                    <input asp-for="Status" class="form-control form-control-lg" placeholder="أدخل حالة الطاولة" />
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <!-- حقل هل الطاولة مشغولة -->
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsOccupied" />
+                        هل الطاولة مشغولة؟
+                    </label>
+                </div>
+
+                <!-- زر الإرسال -->
+                <div class="form-group text-center">
+                    <input type="submit" value="إضافة الطاولة" class="btn btn-primary btn-lg btn-block mt-4" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- زر العودة إلى القائمة -->
+    <div class="text-center mt-4">
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">العودة إلى القائمة</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

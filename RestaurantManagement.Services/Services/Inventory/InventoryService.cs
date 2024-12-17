@@ -1,8 +1,8 @@
 ﻿using RestaurantManagement.Core.Models.Data;
 using RestaurantManagement.Core.Repository;
-using RestaurantManagement.ViewModels;
+using RestaurantManagement.Core.ViewModels;
 
-namespace RestaurantManagement.Services.InventorySer
+namespace RestaurantManagement.Services.Inventory
 {
     public class InventoryService : IInventoryService
     {
@@ -29,9 +29,7 @@ namespace RestaurantManagement.Services.InventorySer
                 };
 
                 inventoryItemViewModelList.Add(itemViewModel);
-
             }
-
 
             return inventoryItemViewModelList;
         }
@@ -57,8 +55,6 @@ namespace RestaurantManagement.Services.InventorySer
                 CurrentStock = model.CurrentStock,
                 Name = model.ItemName,
                 UnitCost = model.Price,
-
-
             };
             _unitOfWork.Inventory.AddAsync(item).Wait();
             _unitOfWork.CompleteAsync().Wait();

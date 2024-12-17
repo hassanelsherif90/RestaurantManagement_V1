@@ -1,4 +1,4 @@
-﻿namespace RestaurantManagement.ViewModels.OrderView
+﻿namespace RestaurantManagement.Core.ViewModels.OrderView
 {
     public class OrderViewModel
     {

@@ -28,9 +28,7 @@ namespace RestaurantManagement.Core.Models.Data
         [StringLength(500)]
         public string Notes { get; set; }
 
-
-
         public int TableId { get; set; }
-        public virtual Table Table { get; set; }
+        public Table Table { get; set; }
     }
 }

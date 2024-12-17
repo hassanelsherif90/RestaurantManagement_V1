@@ -6,14 +6,15 @@ namespace RestaurantManagement.Core.Models.Data
     {
         [Key]
         public int MenuItemInventoryId { get; set; }
+
         public decimal Quantity { get; set; }
 
         // Navigation Properties
         public int MenuItemId { get; set; }
-        public virtual MenuItem MenuItem { get; set; }
 
+        public MenuItem MenuItem { get; set; }
 
         public int InventoryItemId { get; set; }
-        public virtual InventoryItem InventoryItem { get; set; }
+        public InventoryItem InventoryItem { get; set; }
     }
 }

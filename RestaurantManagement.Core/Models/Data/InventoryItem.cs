@@ -8,7 +8,6 @@ namespace RestaurantManagement.Core.Models.Data
         [Key]
         public int InventoryItemId { get; set; }
 
-
         [Required, StringLength(100)]
         public string Name { get; set; }
 
@@ -24,7 +23,7 @@ namespace RestaurantManagement.Core.Models.Data
         public DateTime LastRestockDate { get; set; }
 
         public int SupplierId { get; set; }
-        public virtual Supplier Supplier { get; set; }
-        public virtual ICollection<MenuItemInventory> MenuItems { get; set; }
+        public Supplier Supplier { get; set; }
+        public ICollection<MenuItemInventory> MenuItems { get; set; }
     }
 }

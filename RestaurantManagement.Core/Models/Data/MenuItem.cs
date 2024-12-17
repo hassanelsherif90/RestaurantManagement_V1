@@ -26,10 +26,11 @@ namespace RestaurantManagement.Core.Models.Data
         // Navigation Properties
         [Required]
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public Category Category { get; set; }
 
-        public virtual ICollection<MenuItemInventory> RequiredInventoryItems { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
+
+        public ICollection<MenuItemInventory> RequiredInventoryItems { get; set; }
     }
 }

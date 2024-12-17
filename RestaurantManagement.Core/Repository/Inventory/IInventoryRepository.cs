@@ -1,7 +1,7 @@
 ﻿using RestaurantManagement.Core.Models.Data;
 using RestaurantManagement.Core.Repository;
 
-namespace RestaurantManagement.Repository.InventoryRe
+namespace RestaurantManagement.Repository.Inventory
 {
     public interface IInventoryRepository : IRepository<InventoryItem>
     {

@@ -3,11 +3,10 @@
 <div class="container">
     <h2>الطاولات</h2>
     <a asp-action="Create" asp-controller="Tables" class="btn btn-primary">إضافة طاولة جديدة</a>
-    <div class="table-responsive">
+    <div class="table-responsive mt-4">
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>مسلسل الطاولة</th>
                     <th>رقم الطاولة</th>
                     <th>عدد المقاعد</th>
                     <th>حالة الطاولة</th>
@@ -18,15 +17,13 @@
                 @foreach (var table in Model)
                 {
                     <tr>
-                        <td>@table.Id</td>
-                         <td>@table.Number</td>
-                        <td>@table.Seats</td>
+                        <td>@table.TableNumber</td>
+                        <td>@table.Capacity</td>
                         <td>
-                            <span  class="badge @(table.IsOccupied ? "bg-danger" : "bg-success")">
-                              @(table.IsOccupied? "مشغولة" : "متاحة")
+                            <span class="badge @(table.IsOccupied ? "bg-danger" : "bg-success")">
+                                @(table.IsOccupied ? "مشغولة" : "متاحة")
                             </span>
-
-                            </td>
+                        </td>
                         <td>
                             <a asp-action="Edit" asp-controller="Tables" class="btn btn-warning btn-sm">تعديل</a>
                             <a asp-action="Delete" asp-controller="Tables" class="btn btn-danger btn-sm">حذف</a>

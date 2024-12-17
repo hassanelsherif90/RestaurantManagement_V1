@@ -7,9 +7,7 @@ namespace RestaurantManagement.DataAccess
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-
         protected readonly DbSet<T> _entities;
-
 
         public ApplicationDbcontext Dbcontext;
 
@@ -86,5 +84,9 @@ namespace RestaurantManagement.DataAccess
             _entities.Update(entity);
         }
 
+        public async Task<T> GetByIdAsync(string id)
+        {
+            return await _entities.FindAsync(id);
+        }
     }
 }

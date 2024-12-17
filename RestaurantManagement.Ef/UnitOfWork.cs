@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using RestaurantManagement.Core.Repository;
-using RestaurantManagement.Core.Repository.CategoryRe;
-using RestaurantManagement.Core.Repository.TableRe;
-using RestaurantManagement.Repository.InventoryRe;
-using RestaurantManagement.Repository.MenuItemInventoryRe;
-using RestaurantManagement.Repository.MenuItemRe;
-using RestaurantManagement.Repository.OrderItemRepo;
-using RestaurantManagement.Repository.OrderRe;
+using RestaurantManagement.Core.Repository.Categories;
+using RestaurantManagement.Core.Repository.Tables;
+using RestaurantManagement.Repository.Inventory;
+using RestaurantManagement.Repository.MenuItemInventories;
+using RestaurantManagement.Repository.MenuItems;
+using RestaurantManagement.Repository.OrderItems;
+using RestaurantManagement.Repository.Orders;
 using RestaurantManagement.Repository.ReservationRe;
-using RestaurantManagement.Repository.SupplierRe;
-
+using RestaurantManagement.Repository.Suppliers;
 
 namespace RestaurantManagement.DataAccess
 {
@@ -43,8 +42,6 @@ namespace RestaurantManagement.DataAccess
             Suppliers = new SupplierRepository(context);
             menuItemInventory = new MenuItemInventoryRepositry(context);
             orderItem = new OrderItemRepository(context);
-
-
         }
 
         public async Task<int> CompleteAsync()
@@ -86,5 +83,4 @@ namespace RestaurantManagement.DataAccess
             _context.Dispose();
         }
     }
-
 }

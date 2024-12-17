@@ -1,11 +1,11 @@
-
 using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Repository;
 using RestaurantManagement.DataAccess;
-using RestaurantManagement.Services.InventorySer;
-using RestaurantManagement.Services.MenuItemSer;
-using RestaurantManagement.Services.OrderSer;
-using RestaurantManagement.Services.TableSer;
+using RestaurantManagement.Services.Inventory;
+using RestaurantManagement.Services.Menu;
+using RestaurantManagement.Services.Order;
+using RestaurantManagement.Services.Services.Reservations;
+using RestaurantManagement.Services.Tables;
 
 namespace RestaurantManagement
 {
@@ -21,18 +21,17 @@ namespace RestaurantManagement
             builder.Services.AddDbContext<ApplicationDbcontext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));//.UseLazyLoadingProxies();
-
             });
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IInventoryService, InventoryService>();
             builder.Services.AddScoped<ITableService, TableService>();
             builder.Services.AddScoped<IMenuItemService, MenuItemService>();
+            builder.Services.AddScoped<IReservationsService, ReservationsService>();
 
             var app = builder.Build();
 

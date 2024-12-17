@@ -1,74 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.Repository;
-using RestaurantManagement.ViewModels;
-using RestaurantManagement.ViewModels.OrderView;
-
+using RestaurantManagement.Core.ViewModels;
+using RestaurantManagement.Services.Order;
+using RestaurantManagement.Services.Services.Reservations;
+using RestaurantManagement.Services.Tables;
 
 public class DashboardController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IOrderService _orderServices;
+    private readonly IReservationsService _reservationsService;
 
-    public DashboardController(IUnitOfWork unitOfWork)
+    public ITableService _tableService { get; }
+
+    public DashboardController(IUnitOfWork unitOfWork, IOrderService orderServices, ITableService tableService, IReservationsService reservationsService)
     {
         _unitOfWork = unitOfWork;
+        _orderServices = orderServices;
+        _tableService = tableService;
+        _reservationsService = reservationsService;
     }
 
     public async Task<IActionResult> Index()
     {
         var model = new DashboardViewModel
         {
-            TodayOrders = await _unitOfWork.Orders.CountAsync(o => o.OrderDate.Date == DateTime.UtcNow.Date),
-            TodayRevenue = await _unitOfWork.Orders.GetTotalRevenue(DateTime.UtcNow.Date, DateTime.UtcNow),
-            PendingReservations = await _unitOfWork.Reservations.CountAsync(r => !r.IsDeleted && r.ReservationDate > DateTime.UtcNow),
+            TodayOrders = _orderServices.DayOrders(),
+            TodayRevenue = await _orderServices.GetTotalRevenue(),
+            PendingReservations = _reservationsService.PendingReservations(),
             LowStockItems = await _unitOfWork.Inventory.CountAsync(i => i.CurrentStock < 5),
-            RecentOrders = await GetRecentOrders(),
-            Tables = await GetTables(),
+            RecentOrders = await _orderServices.GetRecentOrders(),
+            Tables = await _tableService.GetTables(),
             SalesChartData = await GetSalesChartData()
         };
 
         return View(model);
     }
 
-    private async Task<IEnumerable<OrderViewModel>> GetRecentOrders()
-    {
-        var orders = await _unitOfWork.Orders.GetOrderByStatus("Completed");
-        var orderViewModels = orders.Select(o => new OrderViewModel
-        {
-            OrderId = o.OrderId,
-            TableNumber = o.Table.TableNumber,
-            OrderTime = o.OrderDate,
-            TotalAmount = o.TotalAmount,
-            Status = o.OrderStatus,
-            StatusColor = GetStatusColor(o.OrderStatus)
-        }).Take(5).ToList();
 
-        return orderViewModels;
-    }
 
-    private async Task<IEnumerable<TableViewModel>> GetTables()
-    {
-        var tables = await _unitOfWork.Tables.GetAllAsync();
-        return tables.Select(t => new TableViewModel
-        {
-            Number = t.TableNumber,
-            IsOccupied = t.IsOccupied == false
-        }).ToList();
-    }
 
     private async Task<SalesChartData> GetSalesChartData()
     {
         var data = new SalesChartData();
         return data;
-    }
-
-    private string GetStatusColor(string status)
-    {
-        return status switch
-        {
-            "Pending" => "warning",
-            "Completed" => "success",
-            "Cancelled" => "danger",
-            _ => "secondary"
-        };
     }
 }

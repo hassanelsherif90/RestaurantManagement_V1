@@ -1,6 +1,6 @@
-﻿using RestaurantManagement.ViewModels.OrderView;
+﻿using RestaurantManagement.Core.ViewModels.OrderView;
 
-namespace RestaurantManagement.ViewModels
+namespace RestaurantManagement.Core.ViewModels
 {
     public class DashboardViewModel
     {

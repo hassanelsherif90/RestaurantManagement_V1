@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Models.Data;
 
-
-
 namespace RestaurantManagement.DataAccess
 {
     public class ApplicationDbcontext : DbContext
     {
-
         public DbSet<Category> categories { get; set; }
         public DbSet<InventoryItem> inventoryItems { get; set; }
         public DbSet<MenuItem> menuItems { get; set; }
@@ -21,9 +18,6 @@ namespace RestaurantManagement.DataAccess
 
         public ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : base(options)
         {
-
         }
-
-
     }
 }

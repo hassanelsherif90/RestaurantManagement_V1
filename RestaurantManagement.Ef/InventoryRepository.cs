@@ -1,5 +1,5 @@
 ﻿using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Repository.InventoryRe;
+using RestaurantManagement.Repository.Inventory;
 
 namespace RestaurantManagement.DataAccess
 {

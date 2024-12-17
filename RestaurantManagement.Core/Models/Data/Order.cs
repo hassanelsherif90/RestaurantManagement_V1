@@ -32,12 +32,8 @@ namespace RestaurantManagement.Core.Models.Data
         [StringLength(50)]
         public string PaymentMethod { get; set; }
 
-
         public int? TableId { get; set; }
-        public virtual Table Table { get; set; }
-
-
-
+        public Table Table { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }

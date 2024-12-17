@@ -9,14 +9,14 @@
     transition: margin .25s ease-out;
 }
 
-#sidebar-wrapper .sidebar-heading {
-    padding: 0.875rem 1.25rem;
-    font-size: 1.2rem;
-}
+    #sidebar-wrapper .sidebar-heading {
+        padding: 0.875rem 1.25rem;
+        font-size: 1.2rem;
+    }
 
-#sidebar-wrapper .list-group {
-    width: 15rem;
-}
+    #sidebar-wrapper .list-group {
+        width: 15rem;
+    }
 
 #page-content-wrapper {
     min-width: 100vw;
@@ -53,13 +53,13 @@
     color: white;
 }
 
-.table-item.available {
-    background-color: #28a745;
-}
+    .table-item.available {
+        background-color: #28a745;
+    }
 
-.table-item.occupied {
-    background-color: #dc3545;
-}
+    .table-item.occupied {
+        background-color: #dc3545;
+    }
 
 .table-number {
     font-size: 1.5rem;
@@ -107,9 +107,9 @@
     transition: transform 0.2s ease;
 }
 
-.table-item:hover {
-    transform: scale(1.05);
-}
+    .table-item:hover {
+        transform: scale(1.05);
+    }
 
 /* Status Badges */
 .badge {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RestaurantManagement.Models.ViewModels
+namespace RestaurantManagement.Core.ViewModels.OrderView
 {
     public class OrderItemViewModel
     {

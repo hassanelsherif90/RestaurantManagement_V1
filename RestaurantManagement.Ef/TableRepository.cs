@@ -1,6 +1,5 @@
-﻿
-using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Core.Repository.TableRe;
+﻿using RestaurantManagement.Core.Models.Data;
+using RestaurantManagement.Core.Repository.Tables;
 
 namespace RestaurantManagement.DataAccess
 {
@@ -9,7 +8,5 @@ namespace RestaurantManagement.DataAccess
         public TableRepository(ApplicationDbcontext dbcontext) : base(dbcontext)
         {
         }
-
-
     }
 }

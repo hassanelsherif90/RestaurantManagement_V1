@@ -1,8 +1,7 @@
-﻿using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Core.Repository;
-using RestaurantManagement.ViewModels.OrderView;
+﻿using RestaurantManagement.Core.Repository;
+using RestaurantManagement.Core.ViewModels.OrderView;
 
-namespace RestaurantManagement.Services.OrderSer
+namespace RestaurantManagement.Services.Order
 {
     public class OrderService : IOrderService
     {
@@ -15,7 +14,6 @@ namespace RestaurantManagement.Services.OrderSer
 
         public IEnumerable<OrderViewModel> GetAllOrders()
         {
-
             var orders = _unitOfWork.Orders.GetAllAsync().Result;
             var OrderViewModelList = new List<OrderViewModel>();
 
@@ -28,7 +26,6 @@ namespace RestaurantManagement.Services.OrderSer
                     TotalAmount = order.TotalAmount,
                     TableNumber = order.Table.TableNumber,
                     Status = order.OrderStatus,
-
                 };
 
                 OrderViewModelList.Add(orderview);
@@ -46,77 +43,71 @@ namespace RestaurantManagement.Services.OrderSer
                 TotalAmount = order.TotalAmount,
                 TableNumber = order.Table.TableNumber,
                 Status = order.OrderStatus,
-
             };
 
             return orderview;
         }
 
-        public async void CreateOrder(OrderCreateViewModel model)
-        {
-            var table = await _unitOfWork.Tables.GetByIdAsync(model.TableId);
+        //public async void CreateOrder(OrderCreateViewModel model)
+        //{
+        //    //var table = await _unitOfWork.Tables.GetByIdAsync(model.TableId);
 
-            if (table == null || table.IsOccupied)
-            {
-                throw new Exception("الطاولة غير متوفرة ");
-            }
+        //    //if (table == null || table.IsOccupied)
+        //    //{
+        //    //    throw new Exception("الطاولة غير متوفرة ");
+        //    //}
 
-            //check items in inentory 
-            /*foreach (var item in model.Items)
-            {
-                var isAvailable = await _unitOfWork.Inventory.CheckStockAvailability(item.MenuItemId, item.Quantity);
-                if (!isAvailable)
-                    throw new Exception($"العنصر غير متوفر بالكمية المطلوبة: {item.MenuItemId}");
-            }*/
+        //    //check items in inentory
+        //    /*foreach (var item in model.Items)
+        //    {
+        //        var isAvailable = await _unitOfWork.Inventory.CheckStockAvailability(item.MenuItemId, item.Quantity);
+        //        if (!isAvailable)
+        //            throw new Exception($"العنصر غير متوفر بالكمية المطلوبة: {item.MenuItemId}");
+        //    }*/
 
-            var order = new Order
-            {
-                TableId = model.TableId,
-                OrderDate = DateTime.UtcNow,
-                OrderStatus = "Active",
-                PaymentStatus = "Pending",
+        //    var order = new Order
+        //    {
+        //        TableId = model.TableId,
+        //        OrderDate = DateTime.UtcNow,
+        //        OrderStatus = "Active",
+        //        PaymentStatus = "Pending",
+        //    };
 
-            };
+        //    decimal subtotal = 0;
+        //    var orderItems = new List<OrderItem>();
+        //    /*foreach (var item in model.Items)
+        //    {
+        //        var menuItem = await _unitOfWork.MenuItems.GetByIdAsync(item.MenuItemId);
+        //        var orderItem = new OrderItem
+        //        {
+        //            MenuItemId = item.MenuItemId,
+        //            Quantity = item.Quantity,
+        //            UnitPrice = menuItem.Price,
+        //            TotalPrice = menuItem.Price * item.Quantity,
+        //            SpecialInstructions = item.SpecialInstructions
+        //        };
 
-            decimal subtotal = 0;
-            var orderItems = new List<OrderItem>();
-            /*foreach (var item in model.Items)
-            {
-                var menuItem = await _unitOfWork.MenuItems.GetByIdAsync(item.MenuItemId);
-                var orderItem = new OrderItem
-                {
-                    MenuItemId = item.MenuItemId,
-                    Quantity = item.Quantity,
-                    UnitPrice = menuItem.Price,
-                    TotalPrice = menuItem.Price * item.Quantity,
-                    SpecialInstructions = item.SpecialInstructions
-                };
+        //        orderItems.Add(orderItem);
+        //        subtotal += orderItem.TotalPrice;
+        //    }*/
 
+        //    order.SubTotal = subtotal;
+        //    order.Tax = subtotal * 0.15m;
+        //    order.Discount = await CalculateDiscount(1, subtotal);
+        //    order.TotalAmount = order.SubTotal + order.Tax - order.Discount;
 
-                orderItems.Add(orderItem);
-                subtotal += orderItem.TotalPrice;
-            }*/
+        //    await _unitOfWork.Orders.AddAsync(order);
 
+        //    //foreach (var item in orderItems)
+        //    //{
+        //    //    item.OrderId = order.OrderId;
+        //    //    await _unitOfWork.OrderItems.AddAsync(item);
+        //    //}
 
-            order.SubTotal = subtotal;
-            order.Tax = subtotal * 0.15m;
-            order.Discount = await CalculateDiscount(1, subtotal);
-            order.TotalAmount = order.SubTotal + order.Tax - order.Discount;
-
-            await _unitOfWork.Orders.AddAsync(order);
-
-            //foreach (var item in orderItems)
-            //{
-            //    item.OrderId = order.OrderId;
-            //    await _unitOfWork.OrderItems.AddAsync(item);
-            //}
-
-            table.IsOccupied = true;
-            table.Status = "Occupied";
-            _unitOfWork.Tables.UpdateAsync(table);
-
-
-        }
+        //    //table.IsOccupied = true;
+        //    //table.Status = "Occupied";
+        //    //_unitOfWork.Tables.UpdateAsync(table);
+        //}
 
         public void UpdateOrder(OrderEditViewModel model)
         {
@@ -139,9 +130,46 @@ namespace RestaurantManagement.Services.OrderSer
 
             //// حساب الخصم بناءً على نوع العضوية
             //if (user.UserRoles.Any(ur => ur.Role.RoleName == "VIP"))
-            //    return subtotal * 0.1m; 
+            //    return subtotal * 0.1m;
 
             return 0;
+        }
+
+        public int DayOrders()
+        {
+            return _unitOfWork.Orders.CountAsync(o => o.OrderDate.Date == DateTime.UtcNow.Date).Result;
+        }
+
+        public async Task<IEnumerable<OrderViewModel>> GetRecentOrders()
+        {
+            var orders = await _unitOfWork.Orders.GetOrderByStatus("Completed");
+            var orderViewModels = orders.Select(o => new OrderViewModel
+            {
+                OrderId = o.OrderId,
+                TableNumber = o.Table.TableNumber,
+                OrderTime = o.OrderDate,
+                TotalAmount = o.TotalAmount,
+                Status = o.OrderStatus,
+                StatusColor = GetStatusColor(o.OrderStatus)
+            }).Take(5).ToList();
+
+            return orderViewModels;
+        }
+
+        private string GetStatusColor(string status)
+        {
+            return status switch
+            {
+                "Pending" => "warning",
+                "Completed" => "success",
+                "Cancelled" => "danger",
+                _ => "secondary"
+            };
+        }
+
+        public async Task<decimal> GetTotalRevenue()
+        {
+            return await _unitOfWork.Orders.GetTotalRevenue(DateTime.UtcNow.Date, DateTime.UtcNow.Date.AddDays(1));
         }
     }
 }

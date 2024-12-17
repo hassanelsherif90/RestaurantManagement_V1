@@ -22,7 +22,6 @@ namespace RestaurantManagement.Core.Models.Data
         [StringLength(500)]
         public string Address { get; set; }
 
-
-        public virtual ICollection<InventoryItem> InventoryItems { get; set; }
+        public ICollection<InventoryItem> InventoryItems { get; set; }
     }
 }

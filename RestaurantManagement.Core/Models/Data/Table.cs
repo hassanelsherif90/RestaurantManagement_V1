@@ -18,8 +18,7 @@ namespace RestaurantManagement.Core.Models.Data
         [Required, StringLength(50)]
         public string Status { get; set; }
 
-
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RestaurantManagement.ViewModels
+﻿namespace RestaurantManagement.Core.ViewModels
 {
     public class InventoryItemViewModel
     {

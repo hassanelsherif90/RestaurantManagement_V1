@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Repository.MenuItemRe;
-
-
+using RestaurantManagement.Repository.MenuItems;
 
 namespace RestaurantManagement.DataAccess
 {
@@ -29,7 +27,6 @@ namespace RestaurantManagement.DataAccess
 
         public async Task<MenuItem> GetMenuItemWithDetails(int menuItemId)
         {
-
             return await _entities.Include(m => m.Category)
                 .Include(m => m.RequiredInventoryItems)
                     .ThenInclude(ri => ri.InventoryItem)

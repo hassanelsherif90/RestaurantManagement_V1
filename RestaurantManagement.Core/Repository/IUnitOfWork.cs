@@ -1,16 +1,15 @@
-﻿using RestaurantManagement.Core.Repository.CategoryRe;
-using RestaurantManagement.Core.Repository.TableRe;
-using RestaurantManagement.Repository.InventoryRe;
-using RestaurantManagement.Repository.MenuItemInventoryRe;
-using RestaurantManagement.Repository.MenuItemRe;
-using RestaurantManagement.Repository.OrderItemRepo;
-using RestaurantManagement.Repository.OrderRe;
+﻿using RestaurantManagement.Core.Repository.Categories;
+using RestaurantManagement.Core.Repository.Tables;
+using RestaurantManagement.Repository.Inventory;
+using RestaurantManagement.Repository.MenuItemInventories;
+using RestaurantManagement.Repository.MenuItems;
+using RestaurantManagement.Repository.OrderItems;
+using RestaurantManagement.Repository.Orders;
 using RestaurantManagement.Repository.ReservationRe;
-using RestaurantManagement.Repository.SupplierRe;
+using RestaurantManagement.Repository.Suppliers;
 
 namespace RestaurantManagement.Core.Repository
 {
-
     public interface IUnitOfWork : IDisposable
     {
         ICategoryRepository Categories { get; }
@@ -24,11 +23,12 @@ namespace RestaurantManagement.Core.Repository
         ISupplierRepository Suppliers { get; }
         ITableRepository Tables { get; }
 
-
         Task<int> CompleteAsync();
+
         Task BeginTransactionAsync();
+
         Task CommitTransactionAsync();
+
         Task RollbackTransactionAsync();
     }
-
 }

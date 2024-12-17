@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Repository.OrderRe;
-
+using RestaurantManagement.Repository.Orders;
 
 namespace RestaurantManagement.DataAccess
 {
@@ -41,11 +40,18 @@ namespace RestaurantManagement.DataAccess
 
         public async Task<decimal> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {
-            return await _entities.Where(o => !o.IsDeleted &&
-            o.OrderDate >= startDate &&
-            o.OrderDate <= endDate &&
-            o.OrderStatus == "Paid")
-                .SumAsync(o => o.TotalAmount);
+            var total = await _entities.Where(o => !o.IsDeleted &&
+o.OrderDate >= startDate &&
+o.OrderDate <= endDate &&
+// o.OrderStatus == "Paid")
+o.OrderStatus == "Confirmed")
+    .SumAsync(o => o.TotalAmount);
+            return total;
+        }
+
+        public override async Task<IEnumerable<Order>> GetAllAsync()
+        {
+            return await _entities.Where(o => !o.IsDeleted).Include(o => o.Table).ToListAsync();
         }
     }
 }

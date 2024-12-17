@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Services.TableSer;
-using RestaurantManagement.ViewModels;
+using RestaurantManagement.Core.ViewModels;
+using RestaurantManagement.Services.Tables;
 
 namespace RestaurantManagement.Controllers
 {
-
     public class TablesController : Controller
     {
         private readonly ITableService _tableService;
@@ -16,10 +15,11 @@ namespace RestaurantManagement.Controllers
 
         public IActionResult Index()
         {
-            var tables = _tableService.GetAllTables();
-            return View(tables);
+            var tableOptions = _tableService.GetTableOptions();
+            return View("Index", tableOptions);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View("Create");
@@ -30,41 +30,18 @@ namespace RestaurantManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _tableService.CreateTable(model);
-                return RedirectToAction("Index");
+                try
+                {
+                    _tableService.CreateTable(model);
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                }
             }
-            return View(model);
-        }
 
-        public IActionResult Edit(int id)
-        {
-            var table = _tableService.GetTableById(id);
-            return View(table);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(TableViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                _tableService.UpdateTable(model);
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
-
-        public IActionResult Delete(int id)
-        {
-            var table = _tableService.GetTableById(id);
-            return View(table);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            _tableService.DeleteTable(id);
-            return RedirectToAction("Index");
+            return View("Create", model);
         }
     }
-
 }

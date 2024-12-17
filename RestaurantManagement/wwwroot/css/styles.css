@@ -1,0 +1,288 @@
+﻿/* General Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Cards Styling */
+.card-hover:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Statistics Cards */
+.card.bg-gradient-primary {
+    background: linear-gradient(to right, #4e73df, #224abe);
+}
+
+.card.bg-gradient-success {
+    background: linear-gradient(to right, #1cc88a, #17a673);
+}
+
+.card.bg-gradient-warning {
+    background: linear-gradient(to right, #f6c23e, #e0a800);
+}
+
+.card.bg-gradient-danger {
+    background: linear-gradient(to right, #e74a3b, #d93025);
+}
+
+.card-body h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.card-body .small {
+    font-size: 0.85rem;
+}
+
+/* Table Styling */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Table Grid for Table Status */
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.table-item {
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .table-item.available {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .table-item.occupied {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .table-item .table-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .table-item .table-status {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+    }
+
+/* Chart Styling */
+#salesChart {
+    max-width: 100%;
+    height: 300px;
+}
+
+/* Badge Styling */
+.badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    padding: 0.25rem 0.75rem;
+}
+
+    .badge.bg-success {
+        background-color: #28a745;
+    }
+
+    .badge.bg-warning {
+        background-color: #f6c23e;
+    }
+
+    .badge.bg-danger {
+        background-color: #e74a3b;
+    }
+
+/* Hover Effects */
+.card-body i {
+    transition: color 0.3s ease;
+}
+
+.card-body:hover i {
+    color: #f8f9fc;
+}
+
+/* Footer/Navigation Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 1rem;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+.card-header {
+    font-weight: 600;
+    background-color: #f8f9fc;
+    border-bottom: 2px solid #e1e4e7;
+}
+
+/* Table Header */
+th {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: 700;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .card-body h3 {
+        font-size: 1.5rem;
+    }
+
+    .card-body .small {
+        font-size: 0.75rem;
+    }
+}
+
+
+/* General Styling */
+
+
+.container {
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #4e73df;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 1rem;
+}
+
+.table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+
+.table td {
+    font-size: 1rem;
+}
+
+/* Badge Styling for Status */
+.badge {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+
+    .badge.bg-success {
+        background-color: #28a745;
+    }
+
+    .badge.bg-danger {
+        background-color: #dc3545;
+    }
+
+/* Button Styling */
+.btn {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+.btn-warning {
+    background-color: #f6c23e;
+    border-color: #f6c23e;
+}
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+    }
+
+.btn-danger {
+    background-color: #e74a3b;
+    border-color: #e74a3b;
+}
+
+    .btn-danger:hover {
+        background-color: #c23616;
+        border-color: #9e2a16;
+    }
+
+/* Hover Effects */
+.table tbody tr:hover .btn {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table-responsive {
+        margin-top: 10px;
+    }
+
+    .table th, .table td {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+

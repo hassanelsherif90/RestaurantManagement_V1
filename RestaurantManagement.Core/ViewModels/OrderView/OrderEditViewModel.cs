@@ -1,6 +1,4 @@
-﻿using RestaurantManagement.Models.ViewModels;
-
-namespace RestaurantManagement.ViewModels.OrderView
+﻿namespace RestaurantManagement.Core.ViewModels.OrderView
 {
     public class OrderEditViewModel
     {
@@ -8,6 +6,5 @@ namespace RestaurantManagement.ViewModels.OrderView
         public int TableId { get; set; } // معرف الطاولة
         public decimal TotalAmount { get; set; } // المبلغ الإجمالي
         public IEnumerable<OrderItemViewModel> TableOptions { get; set; } // خيارات الطاولة
-
     }
 }

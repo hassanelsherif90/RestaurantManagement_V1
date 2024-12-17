@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Models.Data;
-using RestaurantManagement.Core.Repository.CategoryRe;
+using RestaurantManagement.Core.Repository.Categories;
 
 namespace RestaurantManagement.DataAccess
 {
