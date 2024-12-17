@@ -17,7 +17,7 @@ namespace RestaurantManagement.Core.Repository
         IMenuItemRepository MenuItems { get; }
         IMenuItemInventoryRepository menuItemInventory { get; }
         IOrderRepository Orders { get; }
-        IOrderItemRepository orderItem { get; }
+        IOrderItemRepository OrderItems { get; }
         IReservationRepository Reservations { get; }
 
         ISupplierRepository Suppliers { get; }

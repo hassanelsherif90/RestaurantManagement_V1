@@ -7,6 +7,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>رقم المسلسل</th>
                     <th>رقم الطاولة</th>
                     <th>عدد المقاعد</th>
                     <th>حالة الطاولة</th>
@@ -17,6 +18,7 @@
                 @foreach (var table in Model)
                 {
                     <tr>
+                        <td>@table.Id</td>
                         <td>@table.TableNumber</td>
                         <td>@table.Capacity</td>
                         <td>
@@ -25,7 +27,7 @@
                             </span>
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-controller="Tables" class="btn btn-warning btn-sm">تعديل</a>
+                            <a asp-controller="Tables"  asp-action="Edit" asp-route-Id="@table.Id" class="btn btn-warning btn-sm">تعديل</a>
                             <a asp-action="Delete" asp-controller="Tables" class="btn btn-danger btn-sm">حذف</a>
                         </td>
                     </tr>

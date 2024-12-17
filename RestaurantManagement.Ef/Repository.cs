@@ -84,9 +84,5 @@ namespace RestaurantManagement.DataAccess
             _entities.Update(entity);
         }
 
-        public async Task<T> GetByIdAsync(string id)
-        {
-            return await _entities.FindAsync(id);
-        }
     }
 }

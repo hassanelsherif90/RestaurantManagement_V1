@@ -1,6 +1,6 @@
 ﻿using RestaurantManagement.Core.ViewModels.OrderView;
 
-namespace RestaurantManagement.Services.Order
+namespace RestaurantManagement.Services.Orders
 
 {
     public interface IOrderService
@@ -9,7 +9,7 @@ namespace RestaurantManagement.Services.Order
 
         OrderViewModel GetOrderById(int id);
 
-        //void CreateOrder(OrderCreateViewModel model);
+        void CreateOrder(OrderCreateViewModel model);
 
         void UpdateOrder(OrderEditViewModel model);
 

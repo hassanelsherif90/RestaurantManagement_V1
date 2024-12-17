@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RestaurantManagement.Core.Models.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RestaurantManagement.Core.Models.Data
+namespace RestaurantManagement.Core.ViewModels.OrderView
 {
-    public class Order : BaseEntity
+    public class OrderCreateViewModel
     {
-        [Key]
         public int OrderId { get; set; }
 
         [Required]
@@ -18,12 +18,6 @@ namespace RestaurantManagement.Core.Models.Data
         public decimal SubTotal { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
-        public decimal Tax { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Discount { get; set; }
-
-        [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
 
         [Required, StringLength(50)]
@@ -32,9 +26,11 @@ namespace RestaurantManagement.Core.Models.Data
         [StringLength(50)]
         public string PaymentMethod { get; set; }
 
-        public int? TableId { get; set; }
-        public Table Table { get; set; }
+        public int TableId { get; set; }
+        public Table Tables{ get; set; }
 
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public ICollection<OrderItem> Items { get; set; }
     }
 }
+    
+

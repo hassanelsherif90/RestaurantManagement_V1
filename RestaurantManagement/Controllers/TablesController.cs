@@ -15,7 +15,7 @@ namespace RestaurantManagement.Controllers
 
         public IActionResult Index()
         {
-            var tableOptions = _tableService.GetTableOptions();
+            var tableOptions = _tableService.GetAllTables();
             return View("Index", tableOptions);
         }
 
@@ -43,5 +43,35 @@ namespace RestaurantManagement.Controllers
 
             return View("Create", model);
         }
+
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var table = _tableService.GetTableById(Id);
+
+            return View("Edit", table);
+        }
+
+        [HttpPost]
+        public IActionResult SaveEdit(TableViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _tableService.UpdateTable(model);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                }
+
+
+            }
+
+            return View("Edit", model);
+        }
+
     }
 }

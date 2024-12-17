@@ -6,7 +6,6 @@ namespace RestaurantManagement.Services.Tables
     {
         IEnumerable<TableViewModel> GetAllTables();
 
-        public IEnumerable<TableViewModel> GetTableOptions();
 
         TableViewModel GetTableById(int id);
 
@@ -15,6 +14,6 @@ namespace RestaurantManagement.Services.Tables
         void UpdateTable(TableViewModel model);
 
         void DeleteTable(int id);
-        Task<IEnumerable<TableViewModel>> GetTables();
+
     }
 }

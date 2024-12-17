@@ -3,7 +3,7 @@ using RestaurantManagement.Core.Repository;
 using RestaurantManagement.DataAccess;
 using RestaurantManagement.Services.Inventory;
 using RestaurantManagement.Services.Menu;
-using RestaurantManagement.Services.Order;
+using RestaurantManagement.Services.Orders;
 using RestaurantManagement.Services.Services.Reservations;
 using RestaurantManagement.Services.Tables;
 

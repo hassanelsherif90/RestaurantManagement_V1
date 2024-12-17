@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.Repository;
 using RestaurantManagement.Core.ViewModels;
-using RestaurantManagement.Services.Order;
+using RestaurantManagement.Services.Orders;
 using RestaurantManagement.Services.Services.Reservations;
 using RestaurantManagement.Services.Tables;
 
@@ -30,15 +30,12 @@ public class DashboardController : Controller
             PendingReservations = _reservationsService.PendingReservations(),
             LowStockItems = await _unitOfWork.Inventory.CountAsync(i => i.CurrentStock < 5),
             RecentOrders = await _orderServices.GetRecentOrders(),
-            Tables = await _tableService.GetTables(),
+            Tables = _tableService.GetAllTables(),
             SalesChartData = await GetSalesChartData()
         };
 
         return View(model);
     }
-
-
-
 
     private async Task<SalesChartData> GetSalesChartData()
     {

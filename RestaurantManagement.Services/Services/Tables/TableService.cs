@@ -21,9 +21,11 @@ namespace RestaurantManagement.Services.Tables
             {
                 var tableViewMode = new TableViewModel
                 {
+                    Id = table.TableId,
                     IsOccupied = table.IsOccupied,
                     TableNumber = table.TableNumber,
-                    Capacity = table.Capacity
+                    Capacity = table.Capacity,
+                    Status = table.Status
                 };
                 tableViewModelList.Add(tableViewMode);
             }
@@ -34,12 +36,14 @@ namespace RestaurantManagement.Services.Tables
         public TableViewModel GetTableById(int id)
         {
             var table = _unitOfWork.Tables.GetByIdAsync(id).Result;
+
             var tableViewMode = new TableViewModel
             {
-                //Id = table.TableId,
+                Id = table.TableId,
                 IsOccupied = table.IsOccupied,
                 TableNumber = table.TableNumber,
-                Capacity = table.Reservations.Count(),
+                Capacity = table.Capacity,
+                Status = table.Status
             };
 
             return tableViewMode;
@@ -49,7 +53,6 @@ namespace RestaurantManagement.Services.Tables
         {
             var table = new Table
             {
-                //TableId = model.Id,
                 TableNumber = model.TableNumber,
                 Capacity = model.Capacity,
                 IsOccupied = model.IsOccupied,
@@ -66,10 +69,11 @@ namespace RestaurantManagement.Services.Tables
 
         public void UpdateTable(TableViewModel model)
         {
-            var table = _unitOfWork.Tables.GetByIdAsync(model.TableNumber).Result;
-            // تحديث الخصائص حسب الحاجة
+            var table = _unitOfWork.Tables.GetByIdAsync(model.Id).Result;
+            table.TableNumber = model.TableNumber;
             table.Capacity = model.Capacity;
             table.IsOccupied = model.IsOccupied;
+            table.Status = model.Status;
             _unitOfWork.Tables.UpdateAsync(table);
             _unitOfWork.CompleteAsync().Wait();
         }
@@ -79,36 +83,6 @@ namespace RestaurantManagement.Services.Tables
             var table = _unitOfWork.Tables.GetByIdAsync(id).Result;
             _unitOfWork.Tables.RemoveAsync(table);
             _unitOfWork.CompleteAsync().Wait();
-        }
-
-        public IEnumerable<TableViewModel> GetTableOptions()
-        {
-            var tables = _unitOfWork.Tables.GetAllAsync().Result;
-            List<TableViewModel>? tableViewList = new List<TableViewModel>();
-
-            foreach (var table in tables)
-            {
-                var TableView = new TableViewModel
-                {
-                    //Id = table.TableId,
-                    IsOccupied = table.IsOccupied,
-                    TableNumber = table.TableNumber,
-                    Capacity = table.Capacity
-                };
-
-                tableViewList.Add(TableView);
-            }
-
-            return tableViewList.ToList();
-        }
-        public async Task<IEnumerable<TableViewModel>> GetTables()
-        {
-            var tables = await _unitOfWork.Tables.GetAllAsync();
-            return tables.Select(t => new TableViewModel
-            {
-                TableNumber = t.TableNumber,
-                IsOccupied = t.IsOccupied == false
-            }).ToList();
         }
     }
 }

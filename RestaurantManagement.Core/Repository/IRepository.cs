@@ -6,7 +6,6 @@ namespace RestaurantManagement.Core.Repository
     public interface IRepository<T> where T : BaseEntity
     {
         Task<T> GetByIdAsync(int id);
-        Task<T> GetByIdAsync(string id);
 
         Task<IEnumerable<T>> GetAllAsync();
 

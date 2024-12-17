@@ -28,7 +28,7 @@ namespace RestaurantManagement.DataAccess
 
         public IMenuItemInventoryRepository menuItemInventory { get; private set; }
 
-        public IOrderItemRepository orderItem { get; private set; }
+        public IOrderItemRepository OrderItems { get; private set; }
 
         public UnitOfWork(ApplicationDbcontext context)
         {
@@ -41,7 +41,7 @@ namespace RestaurantManagement.DataAccess
             Inventory = new InventoryRepository(context);
             Suppliers = new SupplierRepository(context);
             menuItemInventory = new MenuItemInventoryRepositry(context);
-            orderItem = new OrderItemRepository(context);
+            OrderItems = new OrderItemRepository(context);
         }
 
         public async Task<int> CompleteAsync()

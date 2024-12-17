@@ -3,6 +3,7 @@
 <div class="container-fluid">
     <!-- Statistics Cards -->
     <div class="row mt-4">
+        
         <!-- Card 1: Orders -->
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card bg-gradient-primary text-white shadow-lg rounded-lg card-hover">
@@ -113,9 +114,9 @@
                     <div class="table-grid">
                         @foreach (var table in Model.Tables)
                         {
-                            <div class="table-item @(!table.IsOccupied ? "occupied" : "available")">
+                            <div class="table-item @(table.IsOccupied ? "occupied" : "available")">
                                 <div class="table-number">@table.TableNumber</div>
-                                <div class="table-status">@(!table.IsOccupied ? "مشغولة" : "متاحة")</div>
+                                <div class="table-status">@(table.IsOccupied ? "مشغولة" : "متاحة")</div>
                             </div>
                         }
                     </div>

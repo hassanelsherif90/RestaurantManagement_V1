@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestaurantManagement.Core;
 using RestaurantManagement.Core.Models.Data;
 using RestaurantManagement.Repository.Orders;
 
@@ -15,6 +16,7 @@ namespace RestaurantManagement.DataAccess
             return await _entities
                 .Where(o => o.OrderStatus == status && !o.IsDeleted)
                 .Include(o => o.OrderItems)
+                .Include(o => o.Table)
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
         }
@@ -40,12 +42,12 @@ namespace RestaurantManagement.DataAccess
 
         public async Task<decimal> GetTotalRevenue(DateTime startDate, DateTime endDate)
         {
-            var total = await _entities.Where(o => !o.IsDeleted &&
-o.OrderDate >= startDate &&
-o.OrderDate <= endDate &&
-// o.OrderStatus == "Paid")
-o.OrderStatus == "Confirmed")
-    .SumAsync(o => o.TotalAmount);
+            decimal total = await _entities
+                .Where(o => !o.IsDeleted &&
+                    o.OrderDate >= startDate &&
+                    o.OrderDate <= endDate &&
+                    o.OrderStatus == enOrderStatus.Confirmed.ToString())
+                .SumAsync(o => o.TotalAmount);
             return total;
         }
 
