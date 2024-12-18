@@ -66,12 +66,34 @@ namespace RestaurantManagement.Controllers
                 {
                     ModelState.AddModelError(string.Empty, ex.InnerException.Message);
                 }
-
-
             }
 
             return View("Edit", model);
         }
 
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            return View("Delete", _tableService.GetTableById(Id));
+        }
+
+
+        public IActionResult saveDelete(int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _tableService.DeleteTable(Id);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);
+                }
+            }
+            var table = _tableService.GetTableById(Id);
+            return View("Delete", table);
+        }
     }
 }
